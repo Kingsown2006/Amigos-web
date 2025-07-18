@@ -1,728 +1,652 @@
- 'use client'
-import { Frijole } from 'next/font/google';
-import Image from 'next/image';
+'use client';
+
 import { motion } from 'framer-motion';
-import { useRef, useState } from 'react';
-
-const frijole = Frijole({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-frijole',
-});
-
-const SocialIcons = () => (
-  <motion.div 
-    initial={{ opacity: 0, x: 50 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ delay: 0.5, duration: 0.5 }}
-    className="fixed right-4 md:right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-20"
-  >
-    <a href="https://t.me/+ijpA6QeFkDA4ZWY0" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-      <svg className="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 24 24" fill="white">
-        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.023c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-      </svg>
-    </a>
-    <a href="https://discord.gg/t2heXgey3c" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-      <svg className="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 24 24" fill="white">
-        <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-      </svg>
-    </a>
-    <a href="https://x.com/Amigos_SOLANA" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-      <svg className="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 24 24" fill="white">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-      </svg>
-    </a>
-  </motion.div>
-);
-
-const SectionSpacer = () => (
-  <div className="h-20 md:h-32 w-full"></div>
-);
+import Image from 'next/image';
+import { FaDiscord, FaTelegramPlane, FaWallet, FaListAlt, FaExchangeAlt, FaBrush, FaSpaceShuttle, FaCoins, FaBullhorn, FaPiggyBank, FaWater, FaUsers, FaStar, FaGem, FaLeaf } from 'react-icons/fa';
 
 export default function Home() {
-  const aboutSectionRef = useRef<HTMLDivElement>(null);
-  const buySectionRef = useRef<HTMLDivElement>(null);
-  const roadmapSectionRef = useRef<HTMLDivElement>(null);
-  const tokenomicsSectionRef = useRef<HTMLDivElement>(null);
-  const stakingSectionRef = useRef<HTMLDivElement>(null);
-
-  const [stakeAmount, setStakeAmount] = useState('');
-  const [isConnected, setIsConnected] = useState(false);
-  const [isStaked, setIsStaked] = useState(false);
-  const [rewards, setRewards] = useState(0);
-
-  const scrollToAbout = () => aboutSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  const scrollToBuy = () => buySectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  const scrollToRoadmap = () => roadmapSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  const scrollToTokenomics = () => tokenomicsSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  const scrollToStaking = () => stakingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-
-  const connectWallet = () => {
-    setIsConnected(true);
-    // Simulate some existing rewards
-    setRewards(125);
-  };
-
-  const handleStake = () => {
-    if (!stakeAmount) return;
-    setIsStaked(true);
-    // Simulate rewards accumulation
-    const interval = setInterval(() => {
-      setRewards(prev => prev + 5);
-    }, 3000);
-    return () => clearInterval(interval);
-  };
-
-  const handleUnstake = () => {
-    setIsStaked(false);
-    setStakeAmount('');
-  };
-
-  const claimRewards = () => {
-    alert(`Claimed ${rewards} AMIGOS rewards!`);
-    setRewards(0);
+  const scrollDown = () => {
+    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
   };
 
   return (
-    <main className="relative w-full overflow-hidden">
-      {/* Landing Section */}
-      <section className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* First Slide: Background with Single Cat Mascot */}
+      <section className="min-h-screen relative">
         <div className="absolute inset-0 z-0">
           <Image
             src="/amigos-landing.jpeg"
-            alt="Amigos mascot background"
-            fill
-            className="object-cover object-center"
+            alt="Amigos Mascot Background"
+            layout="fill"
+            objectFit="cover"
             quality={100}
-            priority
           />
         </div>
 
-        <div className="relative z-10 flex flex-col items-center min-h-screen px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className={`${frijole.className} text-6xl md:text-8xl lg:text-9xl font-bold text-white mt-12 md:mt-20`}
-            style={{ textShadow: '4px 4px 0px rgba(0,0,0,0.3)' }}
+        {/* Animated Title */}
+        <motion.div
+          className="relative z-20 text-center py-10"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <h1
+            className="text-4xl sm:text-6xl md:text-8xl text-white font-frijole drop-shadow-2xl"
+            style={{
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+              WebkitTextStroke: '1px rgba(0, 0, 0, 0.1)',
+              fontFamily: 'Frijole, cursive',
+            }}
           >
             AMIGOS
-          </motion.h1>
+          </h1>
+        </motion.div>
 
-          <div className="flex-grow"></div>
+        {/* Fixed Social Icons on the Side */}
+        <div className="fixed top-1/2 right-2 transform -translate-y-1/2 z-30 flex flex-col space-y-3 sm:space-y-4">
+          <a href="https://x.com/Amigos_SOLANA" target="_blank" rel="noopener noreferrer">
+            <motion.div
+              whileHover={{ scale: 1.2, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 rounded-full flex items-center justify-center"
+            >
+              <span className="text-black text-lg sm:text-xl">X</span>
+            </motion.div>
+          </a>
+          <a href="https://discord.gg/t2heXgey3c" target="_blank" rel="noopener noreferrer">
+            <motion.div
+              whileHover={{ scale: 1.2, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 rounded-full flex items-center justify-center"
+            >
+              <FaDiscord className="text-indigo-600 text-xl sm:text-2xl" />
+            </motion.div>
+          </a>
+          <a href="https://t.me/+ijpA6QeFkDA4ZWY0" target="_blank" rel="noopener noreferrer">
+            <motion.div
+              whileHover={{ scale: 1.2, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 rounded-full flex items-center justify-center"
+            >
+              <FaTelegramPlane className="text-blue-500 text-xl sm:text-2xl" />
+            </motion.div>
+          </a>
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            whileHover={{ scale: 1.05 }}
+        {/* Animated "TAKE ME DOWN" Button */}
+        <motion.div
+          className="relative z-20 text-center mt-32 sm:mt-64"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          <motion.button
+            onClick={scrollDown}
+            className="px-4 py-2 sm:px-6 sm:py-3 bg-yellow-400 text-black font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-lg hover:bg-yellow-500 hover:shadow-xl transition-all duration-300"
+            whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
-            className="mb-12 md:mb-20"
           >
-            <button 
-              onClick={scrollToAbout}
-              className={`${frijole.className} px-8 py-3 bg-white text-black rounded-full text-xl md:text-2xl hover:bg-opacity-90 transition-all`}
-            >
-              TAKE ME DOWN
-            </button>
-          </motion.div>
-        </div>
-
-        <SocialIcons />
+            TAKE ME DOWN
+          </motion.button>
+        </motion.div>
       </section>
 
-      <SectionSpacer />
-
-      {/* About Section */}
-      <section ref={aboutSectionRef} className="relative min-h-screen">
+      {/* Second Slide: Background with Multiple Cat Heads and Story */}
+      <section className="min-h-screen relative">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/Amigos-content.jpeg"
-            alt="Amigos content background"
-            fill
-            className="object-cover object-center"
+            src="/amigos-about.jpeg"
+            alt="Multiple Amigos Cats Background"
+            layout="fill"
+            objectFit="cover"
             quality={100}
           />
         </div>
-
-        <div className="absolute inset-0 z-10 bg-[#1a3a30] bg-opacity-90 flex flex-col items-center justify-center px-4 py-16">
+        <div className="relative z-20 min-h-screen flex items-center justify-center">
           <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-[#FFF8E1] bg-opacity-90 rounded-xl px-8 py-4 mb-8 md:mb-12 w-full max-w-2xl"
+            className="bg-green-900 bg-opacity-70 p-4 sm:p-6 rounded-lg max-w-90% sm:max-w-3xl md:max-w-4xl w-full mx-auto"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, type: 'spring', stiffness: 80 }}
           >
-            <h2 className={`${frijole.className} text-4xl md:text-5xl text-[#1a3a30] text-center`}>
-              ABOUT AMIGOS
-            </h2>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className={`${frijole.className} text-lg md:text-xl text-white text-left space-y-6 max-w-4xl mx-auto`}
-          >
-            <p>Once upon a time, in the wild west of the blockchain, some unlikely heroes — The Amigos — grew tired of constant rug pulls, abandoned projects, and empty promises. Crypto felt more like a desert wasteland than the promised land. So, one brave Amigo saddled up, donned his finest sombrero, and vowed to create a project where holders always ride shotgun.</p>
-            <p>In the Amigos universe, it is all about loyalty and laughter. Holders are not just degens — they are part of the family. With every NFT minted, every token staked, and every community goal reached, the Amigos ensure their loyal compadres reap the rewards.</p>
-            <p>Together, we are building something that lasts — a fiesta on the blockchain where transparency, fairness, and fun take center stage. So join the adventure, because with the Amigos, the community always comes first... and the party never ends!</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-12"
-          >
-            <button 
-              onClick={scrollToBuy}
-              className={`${frijole.className} px-8 py-3 bg-white text-black rounded-full text-lg md:text-xl hover:bg-opacity-90 transition-all`}
-            >
-              HOW TO BUY
-            </button>
+            <div className="text-center">
+              <p className="text-sm sm:text-base md:text-lg text-white leading-relaxed">
+                Once upon a time, in the wild west of the blockchain, some unlikely heroes — The Amigos — grew tired of constant rug pulls, abandoned projects, and empty promises. Crypto felt more like a desert wasteland than the promised land. So, one brave Amigo saddled up, donned his finest sombrero, and vowed to create a project where holders always ride shotgun.
+              </p>
+              <p className="text-sm sm:text-base md:text-lg text-white leading-relaxed mt-4">
+                In the Amigos universe, it’s all about loyalty and laughter. Holders aren’t just degens — they’re part of the family. With every NFT minted, every token staked, and every community goal reached, the Amigos ensure their loyal compadres reap the rewards.
+              </p>
+              <p className="text-sm sm:text-base md:text-lg text-white leading-relaxed mt-4">
+                Together, we’re building something that lasts — a fiesta on the blockchain where transparency, fairness, and fun take center stage. So join the adventure, because with the Amigos, the community always comes first… and the party never ends!
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      <SectionSpacer />
-
-      {/* How to Buy Section */}
-      <section ref={buySectionRef} className="relative min-h-screen">
+      {/* Third Slide: How to Buy */}
+      <section className="min-h-screen relative">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/amigos-landing.jpeg"
-            alt="Amigos mascot background"
-            fill
-            className="object-cover object-center"
+            src="/amigos-about.jpeg"
+            alt="Multiple Amigos Cats Background"
+            layout="fill"
+            objectFit="cover"
             quality={100}
           />
         </div>
-
-        <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-16">
+        <div className="relative z-20 min-h-screen flex flex-col items-center justify-start pt-8 sm:pt-16">
+          {/* Animated "HOW TO BUY" Box */}
           <motion.div
+            className="bg-green-700 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-8"
             initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-[#FFF8E1] bg-opacity-80 rounded-lg px-8 py-4 mb-8 md:mb-12"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
           >
-            <h2 className={`${frijole.className} text-4xl md:text-5xl text-[#1a3a30]`}>
+            <h2 className="text-xl sm:text-2xl md:text-3xl text-white font-bold text-center">
               HOW TO BUY
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* Three Boxes for How to Buy Steps */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 w-90% max-w-5xl mx-auto px-2 sm:px-4">
+            {/* Create Wallet Box */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-[#1a3a30] bg-opacity-90 rounded-xl p-6 text-white flex flex-col items-center"
+              className="bg-green-800 bg-opacity-70 p-3 sm:p-6 rounded-lg shadow-lg"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ scale: 1.05, rotate: 2 }}
             >
-              <div className="bg-[#FFF8E1] rounded-full p-4 mb-4">
-                <svg className="w-10 h-10 text-[#1a3a30]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path>
-                </svg>
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                >
+                  <FaWallet className="text-yellow-300 text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">CREATE WALLET</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  Download and install Phantom wallet, either from AppStore on your phone or the browser extension at your desktop.
+                </p>
               </div>
-              <h3 className={`${frijole.className} text-2xl md:text-3xl mb-4 text-center`}>
-                CREATE WALLET:
-              </h3>
-              <p className={`${frijole.className} text-lg text-center`}>
-                Download and install Phantom wallet, either from AppStore in your phone or the browser extension at your desktop
-              </p>
             </motion.div>
 
+            {/* Get WL Box */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="bg-[#1a3a30] bg-opacity-90 rounded-xl p-6 text-white flex flex-col items-center"
+              className="bg-green-800 bg-opacity-70 p-3 sm:p-6 rounded-lg shadow-lg"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              whileHover={{ scale: 1.05, rotate: -2 }}
             >
-              <div className="bg-[#FFF8E1] rounded-full p-4 mb-4">
-                <svg className="w-10 h-10 text-[#1a3a30]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1.2 }}
+                  transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+                >
+                  <FaListAlt className="text-yellow-300 text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">GET WL</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  All WL will get the NFT airdropped. IF YOU SELL = NO TOKEN AIRDROP, or you can buy the NFT from Magic Eden before the snapshot.
+                </p>
               </div>
-              <h3 className={`${frijole.className} text-2xl md:text-3xl mb-4 text-center`}>
-                GET WL:
-              </h3>
-              <p className={`${frijole.className} text-lg text-center`}>
-                All WL will get the NFT airdropped<br />
-                IF YOU SELL = NO TOKEN AIRDROP<br />
-                OR you can buy the NFT from Magic Eden before the snapshot
-              </p>
             </motion.div>
 
+            {/* Swap Solana to Amigos Box */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="bg-[#1a3a30] bg-opacity-90 rounded-xl p-6 text-white flex flex-col items-center"
+              className="bg-green-800 bg-opacity-70 p-3 sm:p-6 rounded-lg shadow-lg"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ scale: 1.05, rotate: 2 }}
             >
-              <div className="bg-[#FFF8E1] rounded-full p-4 mb-4">
-                <svg className="w-10 h-10 text-[#1a3a30]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M8 12h4m0 0l-3-3m3 3l-3 3"></path>
-                </svg>
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                >
+                  <FaExchangeAlt className="text-yellow-300 text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">SWAP SOLANA TO AMIGOS</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  When the Amigos token is live, go to DEXSCREENER and paste the Amigos contract address which will be posted on the website to Amigos and swap your Solana.
+                </p>
               </div>
-              <h3 className={`${frijole.className} text-2xl md:text-3xl mb-4 text-center`}>
-                SWAP SOLANA TO AMIGOS:
-              </h3>
-              <p className={`${frijole.className} text-lg text-center`}>
-                When the Amigos token is live<br />
-                go to DEXSCREENER and paste the Amigos contract address which will be posted on the website<br />
-                to Amigos and swap your Solana
-              </p>
             </motion.div>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-12"
-          >
-            <button 
-              onClick={scrollToRoadmap}
-              className={`${frijole.className} px-8 py-3 bg-white text-black rounded-full text-lg md:text-xl hover:bg-opacity-90 transition-all`}
-            >
-              VIEW ROADMAP
-            </button>
-          </motion.div>
         </div>
       </section>
 
-      <SectionSpacer />
-
-      {/* Roadmap Section */}
-      <section ref={roadmapSectionRef} className="relative min-h-screen">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/amigos-landing.jpeg"
-            alt="Amigos mascot background"
-            fill
-            className="object-cover object-center"
-            quality={100}
-          />
-        </div>
-
-        <div className="absolute inset-0 z-10 bg-[#1a3a30] bg-opacity-90 flex flex-col items-center justify-center px-4 py-16">
+      {/* Fourth Slide: Roadmap */}
+      <section className="min-h-screen relative bg-gradient-to-b from-green-900 via-white to-black">
+        <div className="relative z-20 min-h-screen flex flex-col items-center justify-start pt-8 sm:pt-16">
+          {/* Animated "Roadmap" Title */}
           <motion.div
+            className="bg-green-700 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-12"
             initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-[#FFF8E1] bg-opacity-90 rounded-xl px-8 py-4 mb-8 md:mb-12 w-full max-w-2xl"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
           >
-            <h2 className={`${frijole.className} text-4xl md:text-5xl text-[#1a3a30] text-center`}>
+            <h2 className="text-xl sm:text-2xl md:text-3xl text-white font-bold text-center">
               ROADMAP
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto px-4">
-            {[
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>,
-                title: "PHASE 1:",
-                items: [
-                  "Develop the Amigo NFT collection",
-                  "Establish smart contracts",
-                  "Community engagement"
-                ]
-              },
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>,
-                title: "PHASE 2:",
-                items: [
-                  "Launch free mint",
-                  "Fund liquidity pool",
-                  "Token airdrops",
-                  "Staking program launch"
-                ]
-              },
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>,
-                title: "PHASE 3:",
-                items: [
-                  "Long-term staking",
-                  "Treasury utilization",
-                  "Exchange listings",
-                  "Community expansion"
-                ]
-              },
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>,
-                title: "PHASE 4:",
-                special: "Something extraordinary is brewing for loyal Amigos..."
-              }
-            ].map((phase, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="bg-[#FFF8E1] bg-opacity-90 rounded-xl p-6 text-[#1a3a30] flex flex-col items-center"
-              >
-                <div className="bg-[#1a3a30] rounded-full p-4 mb-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {phase.icon}
-                  </svg>
-                </div>
-                <h3 className={`${frijole.className} text-2xl md:text-3xl mb-4 text-center border-b-2 border-[#1a3a30] pb-2`}>
-                  {phase.title}
-                </h3>
-                {phase.items ? (
-                  <ul className={`${frijole.className} text-lg space-y-2 list-disc pl-5`}>
-                    {phase.items.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className={`${frijole.className} text-lg text-center`}>
-                    {phase.special}
-                  </p>
-                )}
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-12"
-          >
-            <button 
-              onClick={scrollToTokenomics}
-              className={`${frijole.className} px-8 py-3 bg-white text-black rounded-full text-lg md:text-xl hover:bg-opacity-90 transition-all`}
+          {/* Four Boxes for Roadmap Phases */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6 w-90% max-w-5xl mx-auto px-2 sm:px-4">
+            {/* Phase 1 Box */}
+            <motion.div
+              className="bg-green-800 bg-opacity-70 p-3 sm:p-6 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ y: -10 }}
             >
-              TOKENOMICS
-            </button>
-          </motion.div>
-        </div>
-      </section>
-
-      <SectionSpacer />
-
-      {/* Tokenomics Section */}
-      <section ref={tokenomicsSectionRef} className="relative min-h-screen">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/amigos-landing.jpeg"
-            alt="Amigos mascot background"
-            fill
-            className="object-cover object-center"
-            quality={100}
-          />
-        </div>
-
-        <div className="absolute inset-0 z-10 bg-black bg-opacity-40 flex flex-col items-center justify-center px-4 py-16">
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-[#FFF8E1] bg-opacity-90 rounded-xl px-8 py-4 mb-8 md:mb-12"
-          >
-            <h2 className={`${frijole.className} text-4xl md:text-5xl text-[#1a3a30] text-center`}>
-              TOKENOMICS
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto w-full px-4">
-            {[
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>,
-                title: "AIRDROP",
-                content: "50% of supply to community in two phases"
-              },
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>,
-                title: "STAKING",
-                content: "Rewards for true holders with early bonuses"
-              },
-              {
-                icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></>,
-                title: "MARKETING",
-                content: "Collaborations and campaigns for growth"
-              },
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>,
-                title: "RESERVES",
-                content: "Resources for future program needs"
-              },
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>,
-                title: "LIQUIDITY",
-                content: "Funded pools for stable foundation"
-              },
-              {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>,
-                title: "TEAM",
-                content: "10% allocation"
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white bg-opacity-80 rounded-xl p-6 text-[#1a3a30] flex flex-col items-center"
-              >
-                <div className="bg-[#1a3a30] rounded-full p-4 mb-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {item.icon}
-                  </svg>
-                </div>
-                <h3 className={`${frijole.className} text-2xl md:text-3xl mb-3 text-center`}>
-                  {item.title}
-                </h3>
-                <p className={`${frijole.className} text-lg text-center`}>
-                  {item.content}
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <FaBrush className="text-white text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Phase 1</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  Develop the Amigo NFT collection and project branding. Establish smart contracts for staking, burning, and airdrops. Engage the community through social media and sneak peeks.
                 </p>
-              </motion.div>
-            ))}
+              </div>
+            </motion.div>
+
+            {/* Phase 2 Box */}
+            <motion.div
+              className="bg-green-800 bg-opacity-70 p-3 sm:p-6 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              whileHover={{ y: -10 }}
+            >
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: [0, 20, -20, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <FaSpaceShuttle className="text-white text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Phase 2</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  Launch the free mint of Amigo NFTs. Fund the liquidity pool through royalties. Distribute tokens via a two-phase airdrop to NFT holders. Open the short-term staking program with exclusive bonuses for early stakers and NFT holders.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Phase 3 Box */}
+            <motion.div
+              className="bg-green-800 bg-opacity-70 p-3 sm:p-6 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ y: -10 }}
+            >
+              <div className="flex flex-col items-center">
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Phase 3</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  Introduce long-term staking programs and new utilities for token holders. Use treasury reserves for partnerships, growth, and ecosystem innovation. List the token on exchanges and expand the Amigos community.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Phase 4 Box */}
+            <motion.div
+              className="bg-green-800 bg-opacity-70 p-3 sm:p-6 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              whileHover={{ y: -10 }}
+            >
+              <div className="flex flex-col items-center">
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Phase 4</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  Something extraordinary is brewing on the blockchain, reserved for the most loyal Amigos. Only true holders will unlock the next evolution of our ecosystem...
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Fifth Slide: Tokenomics */}
+      <section className="min-h-screen relative bg-black">
+        <div className="relative z-20 min-h-screen flex flex-col items-center justify-start pt-8 sm:pt-16">
+          {/* Animated "TOKENOMICS" Title */}
+          <motion.div
+            className="bg-green-700 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-12"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
+          >
+            <h2 className="text-xl sm:text-2xl md:text-3xl text-white font-bold text-center">
+              TOKENOMICS
+            </h2>
+          </motion.div>
+
+          {/* Six Boxes for Tokenomics */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 w-90% max-w-5xl mx-auto px-2 sm:px-4">
+            {/* Airdrop Box */}
+            <motion.div
+              className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ y: -15, scale: 1.05 }}
+            >
+              <div className="flex flex-col items-center">
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Airdrop</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  Half of the total supply goes straight to the community. Tokens will be airdropped in two phases to reward NFT holders and ensure long-term engagement.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Staking Box */}
+            <motion.div
+              className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              whileHover={{ y: -15, scale: 1.05 }}
+            >
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ scale: 1 }}
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <FaCoins className="text-white text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Staking</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  This is all about rewarding true holders. Stake your tokens and earn rewards proportionally. Early stakers and NFT holders get extra rewards while it’s easy to commit early.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Marketing Box */}
+            <motion.div
+              className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ y: -15, scale: 1.05 }}
+            >
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ x: 0 }}
+                  animate={{ x: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <FaBullhorn className="text-white text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Marketing</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  We’re putting effort into growing the project through collaborations and campaigns to expand our reach, bringing even more value to the community.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Reserves Box */}
+            <motion.div
+              className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              whileHover={{ y: -15, scale: 1.05 }}
+            >
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: [0, 20, -20, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <FaPiggyBank className="text-white text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Reserves</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  Setting aside resources for future growth. This reserve helps adapt to the program needs of our Amigos over time.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Liquidity Pools Box */}
+            <motion.div
+              className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
+              whileHover={{ y: -15, scale: 1.05 }}
+            >
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ scale: 1 }}
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                >
+                  <FaWater className="text-white text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Liquidity Pools</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  We’re starting strong by funding liquidity pools with NFT holders. This ensures a stable foundation and presence right from the beginning.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Team Box */}
+            <motion.div
+              className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+              whileHover={{ y: -15, scale: 1.05 }}
+            >
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ x: 0 }}
+                  animate={{ x: [0, 15, -15, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <FaUsers className="text-white text-2xl sm:text-4xl mb-2" />
+                </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Team</h3>
+                <p className="text-xs sm:text-sm md:text-base text-white text-center">
+                  10% Allocated for Team
+                </p>
+              </div>
+            </motion.div>
           </div>
 
+          {/* Decorative Icons */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-12"
+            className="absolute top-1/4 left-5 sm:left-10 z-10"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.5, scale: 1 }}
+            transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
           >
-            <button 
-              onClick={scrollToStaking}
-              className={`${frijole.className} px-8 py-3 bg-white text-black rounded-full text-lg md:text-xl hover:bg-opacity-90 transition-all`}
-            >
-              STAKING FIESTA
-            </button>
+            <FaStar className="text-green-400 text-xl sm:text-4xl" />
+          </motion.div>
+          <motion.div
+            className="absolute top-1/3 right-5 sm:right-10 z-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 0.5, y: 20 }}
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+          >
+            <FaGem className="text-green-300 text-xl sm:text-4xl" />
+          </motion.div>
+          <motion.div
+            className="absolute bottom-1/4 left-10 sm:left-20 z-10"
+            initial={{ opacity: 0, rotate: 0 }}
+            animate={{ opacity: 0.5, rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <FaLeaf className="text-green-500 text-xl sm:text-4xl" />
           </motion.div>
         </div>
       </section>
 
-      <SectionSpacer />
-
-      {/* Staking Fiesta Section */}
-      <section ref={stakingSectionRef} className="relative min-h-screen">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/amigos-landing.jpeg"
-            alt="Amigos mascot background"
-            fill
-            className="object-cover object-center"
-            quality={100}
-          />
+      {/* Sixth Slide: Staking Page */}
+      <section className="min-h-screen relative">
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-yellow-200 via-green-300 to-blue-200 animate-gradient-xy">
+          {/* Animated gradient background */}
         </div>
-
-        <div className="absolute inset-0 z-10 bg-[#1a3a30] bg-opacity-90 flex flex-col items-center justify-center px-4 py-16">
-          <motion.div
+        <style>
+          {`
+            @keyframes gradient-xy {
+              0% { background-position: 0% 0%; }
+              50% { background-position: 100% 100%; }
+              100% { background-position: 0% 0%; }
+            }
+            .animate-gradient-xy {
+              background-size: 200% 200%;
+              animation: gradient-xy 10s ease infinite;
+            }
+          `}
+        </style>
+        <div className="relative z-20 min-h-screen flex flex-col items-center justify-center pt-8 sm:pt-16">
+          {/* Animated Staking Title */}
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4 sm:mb-8 drop-shadow-lg"
             initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-[#FFF8E1] bg-opacity-90 rounded-xl px-8 py-4 mb-8 md:mb-12 w-full max-w-4xl"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, type: 'spring', stiffness: 120 }}
           >
-            <h2 className={`${frijole.className} text-4xl md:text-6xl text-[#1a3a30] text-center`}>
-              STAKING FIESTA
-            </h2>
-          </motion.div>
+            Amigos Staking Platform
+          </motion.h2>
 
-          {!isConnected ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="bg-white bg-opacity-80 rounded-xl p-8 max-w-md w-full text-center"
-            >
-              <h3 className={`${frijole.className} text-2xl md:text-3xl mb-6 text-[#1a3a30]`}>
-                CONNECT YOUR WALLET
-              </h3>
-              <p className={`${frijole.className} text-lg mb-6`}>
-                Join the fiesta by connecting your wallet to stake AMIGOS tokens
-              </p>
-              <button
-                onClick={connectWallet}
-                className={`${frijole.className} px-8 py-3 bg-[#1a3a30] text-white rounded-full text-lg md:text-xl hover:bg-opacity-90 transition-all`}
+          {/* Staking Panel */}
+          <motion.div
+            className="w-90% sm:w-2/3 md:w-500px p-4 sm:p-6 bg-white bg-opacity-90 rounded-xl shadow-2xl border border-gray-200"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            {/* Wallet Balance */}
+            <div className="mb-4 sm:mb-6">
+              <p className="text-base sm:text-lg text-gray-700">Wallet Balance: 1000 AMG</p>
+            </div>
+
+            {/* Staking Balance */}
+            <div className="mb-4 sm:mb-6">
+              <p className="text-base sm:text-lg text-gray-700">Staked Balance: 500 AMG</p>
+            </div>
+
+            {/* Staking Input */}
+            <div className="mb-4 sm:mb-6">
+              <label className="block text-base sm:text-lg text-gray-800 font-semibold mb-2">Stake Amount (AMG)</label>
+              <div className="flex items-center">
+                <input
+                  type="number"
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Enter amount"
+                />
+                <button className="px-2 sm:px-4 py-2 sm:py-2 bg-gray-300 text-gray-800 rounded-r-lg hover:bg-gray-400">Max</button>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-4 sm:mb-6">
+              <motion.button
+                className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300 font-semibold"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                whileHover={{ scale: 1.05 }}
               >
-                CONNECT WALLET
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="bg-white bg-opacity-80 rounded-xl p-8 max-w-md w-full"
+                Stake Tokens
+              </motion.button>
+              <motion.button
+                className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 font-semibold"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                Unstake Tokens
+              </motion.button>
+            </div>
+
+            {/* NFT Staking Button */}
+            <motion.button
+              className="w-full px-4 sm:px-6 py-2 sm:py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300 font-semibold mb-4 sm:mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              whileHover={{ scale: 1.05 }}
             >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className={`${frijole.className} text-2xl text-[#1a3a30]`}>
-                  Your Stake
-                </h3>
-                <div className={`${frijole.className} text-xl bg-[#1a3a30] text-white px-4 py-1 rounded-full`}>
-                  {isStaked ? 'ACTIVE' : 'INACTIVE'}
-                </div>
-              </div>
+              Stake NFTs (Dummy)
+            </motion.button>
 
-              {!isStaked ? (
-                <>
-                  <div className="mb-6">
-                    <label className={`${frijole.className} block text-lg text-[#1a3a30] mb-2`}>
-                      Amount to Stake
-                    </label>
-                    <input
-                      type="number"
-                      value={stakeAmount}
-                      onChange={(e) => setStakeAmount(e.target.value)}
-                      className="w-full p-3 border-2 border-[#1a3a30] rounded-lg"
-                      placeholder="Enter AMIGOS amount"
-                    />
-                  </div>
-                  
-                  <button
-                    onClick={handleStake}
-                    disabled={!stakeAmount}
-                    className={`${frijole.className} w-full py-3 bg-[#1a3a30] text-white rounded-lg text-lg hover:bg-opacity-90 transition-all disabled:opacity-50`}
-                  >
-                    STAKE TOKENS
-                  </button>
-                </>
-              ) : (
-                <>
-                  <div className="mb-6 p-4 bg-[#FFF8E1] rounded-lg">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className={`${frijole.className} text-lg`}>Staked Amount:</span>
-                      <span className={`${frijole.className} text-xl`}>{stakeAmount} AMIGOS</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className={`${frijole.className} text-lg`}>Rewards Earned:</span>
-                      <span className={`${frijole.className} text-xl text-green-600`}>{rewards} AMIGOS</span>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-4">
-                    <button
-                      onClick={claimRewards}
-                      disabled={rewards === 0}
-                      className={`${frijole.className} flex-1 py-3 bg-yellow-500 text-[#1a3a30] rounded-lg text-lg hover:bg-opacity-90 transition-all disabled:opacity-50`}
-                    >
-                      CLAIM
-                    </button>
-                    <button
-                      onClick={handleUnstake}
-                      className={`${frijole.className} flex-1 py-3 bg-red-600 text-white rounded-lg text-lg hover:bg-opacity-90 transition-all`}
-                    >
-                      UNSTAKE
-                    </button>
-                  </div>
-                </>
-              )}
-
-              <div className="mt-6 pt-4 border-t-2 border-[#1a3a30]">
-                <h4 className={`${frijole.className} text-xl text-[#1a3a30] mb-2 text-center`}>
-                  STAKING BENEFITS
-                </h4>
-                <ul className={`${frijole.className} text-md space-y-1 list-disc pl-5`}>
-                  <li>Earn daily rewards</li>
-                  <li>Higher tiers = better rewards</li>
-                  <li>Early staker bonuses</li>
-                  <li>Exclusive community access</li>
-                </ul>
-              </div>
-            </motion.div>
-          )}
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-12"
-          >
-            <a 
-              href="#"
-              className={`${frijole.className} px-8 py-3 bg-white text-black rounded-full text-lg md:text-xl hover:bg-opacity-90 transition-all`}
-            >
-              BACK TO TOP
-            </a>
+            {/* Reward Display */}
+            <div className="mb-4 sm:mb-6">
+              <p className="text-base sm:text-lg text-gray-700 font-semibold">Total Rewards: 25.50 AMG</p>
+              <p className="text-sm text-gray-500">Last Claimed: 07/17/2025</p>
+            </div>
           </motion.div>
+
+          {/* Connect Wallet Button */}
+          <motion.button
+            className="mt-4 sm:mt-8 px-6 sm:px-10 py-2 sm:py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center font-semibold"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
+            whileHover={{ scale: 1.1 }}
+          >
+            <FaWallet className="mr-2 text-base sm:text-lg" /> Connect Wallet
+          </motion.button>
         </div>
       </section>
 
-      <SectionSpacer />
-
-      {/* Join The Amigos Section */}
-      <section className="relative min-h-screen">
+      {/* Seventh Slide: Join the Amigos */}
+      <section className="min-h-screen relative">
         <div className="absolute inset-0 z-0">
           <Image
             src="/amigos-landing.jpeg"
-            alt="Amigos mascot background"
-            fill
-            className="object-cover object-center"
+            alt="Amigos Mascot Background"
+            layout="fill"
+            objectFit="cover"
             quality={100}
           />
         </div>
-
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center">
-          <motion.div
+        <div className="relative z-20 min-h-screen flex flex-col items-center justify-center pt-8 sm:pt-16">
+          {/* Animated Title */}
+          <motion.h2
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-frijole drop-shadow-2xl mb-4 sm:mb-6"
+            style={{
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+              WebkitTextStroke: '1px rgba(0, 0, 0, 0.1)',
+              fontFamily: 'Frijole, cursive',
+            }}
             initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="mb-12"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, type: 'spring', stiffness: 100 }}
           >
-            <h2 className={`${frijole.className} text-5xl md:text-7xl text-white mb-8`}>
-              JOIN THE AMIGOS
-            </h2>
-            <p className={`${frijole.className} text-xl md:text-2xl text-white max-w-3xl mx-auto`}>
-              AMIGOS IS A MEME TOKEN WITH NO INTRINSIC VALUE. THIS IS JUST FOR FUN AND NOT FINANCIAL ADVICE. 
-              JOIN THE FIESTA AT YOUR OWN RISK AND DO NOT SPEND WHAT YOU CANNOT AFFORD TO LOSE.
-            </p>
-          </motion.div>
+            JOIN THE AMIGOS
+          </motion.h2>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="flex flex-col md:flex-row gap-4"
+          {/* Disclaimer Text */}
+          <motion.p
+            className="text-sm sm:text-lg md:text-xl text-white text-center max-w-90% sm:max-w-2xl px-2 sm:px-4 leading-relaxed drop-shadow-md"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
           >
-            <button className={`${frijole.className} px-8 py-3 bg-white text-black rounded-full text-lg md:text-xl hover:bg-opacity-90 transition-all`}>
-              BUY NOW
-            </button>
-            <a href="https://discord.gg/t2heXgey3c" target="_blank" rel="noopener noreferrer" className={`${frijole.className} px-8 py-3 bg-[#1a3a30] text-white rounded-full text-lg md:text-xl hover:bg-opacity-90 transition-all text-center`}>
-              JOIN DISCORD
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="mt-16 flex gap-6"
-          >
-            <a href="https://t.me/+ijpA6QeFkDA4ZWY0" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-              <svg className="w-10 h-10 md:w-12 md:h-12" viewBox="0 0 24 24" fill="white">
-                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.023c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-              </svg>
-            </a>
-            <a href="https://discord.gg/t2heXgey3c" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-              <svg className="w-10 h-10 md:w-12 md:h-12" viewBox="0 0 24 24" fill="white">
-                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-              </svg>
-            </a>
-            <a href="https://x.com/Amigos_SOLANA" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-              <svg className="w-10 h-10 md:w-12 md:h-12" viewBox="0 0 24 24" fill="white">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-          </motion.div>
+            AMIGOS IS A MEME TOKEN WITH NO INTRINSIC VALUE. THIS IS JUST FOR FUN AND NOT FINANCIAL ADVICE. JOIN THE FIESTA AT YOUR OWN RISK AND DO NOT SPEND WHAT YOU CANNOT AFFORD TO LOSE
+          </motion.p>
         </div>
       </section>
-    </main>
+    </div>
   );
-}
+} 
