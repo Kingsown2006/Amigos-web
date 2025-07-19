@@ -1,4 +1,4 @@
-'use client';
+ 'use client';
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -31,11 +31,12 @@ export default function Home() {
           transition={{ duration: 1 }}
         >
           <h1
-            className="text-4xl sm:text-6xl md:text-8xl text-white font-frijole drop-shadow-2xl"
+            className="text-4xl sm:text-6xl md:text-8xl text-white font-vacation-postcard drop-shadow-2xl"
             style={{
               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-              WebkitTextStroke: '1px rgba(0, 0, 0, 0.1)',
-              fontFamily: 'Frijole, cursive',
+              WebkitTextStroke: '2px rgba(0, 0, 0, 0.2)',
+              fontFamily: '"Vacation Postcard", cursive',
+              fontWeight: '900',
             }}
           >
             AMIGOS
@@ -73,16 +74,16 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Animated "TAKE ME DOWN" Button */}
+        {/* Animated "TAKE ME DOWN" Button (Exclusive to First Slide) */}
         <motion.div
-          className="relative z-20 text-center mt-32 sm:mt-64"
+          className="relative z-20 text-center pb-10 md:pb-20"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
           <motion.button
             onClick={scrollDown}
-            className="px-4 py-2 sm:px-6 sm:py-3 bg-yellow-400 text-black font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-lg hover:bg-yellow-500 hover:shadow-xl transition-all duration-300"
+            className="px-4 py-2 sm:px-6 sm:py-3 bg-yellow-400 text-black font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-lg hover:bg-yellow-500 hover:shadow-xl transition-all duration-300 fixed bottom-4 left-1/2 transform -translate-x-1/2 w-3/4 sm:w-auto first-slide-only"
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -98,7 +99,7 @@ export default function Home() {
             src="/amigos-about.jpeg"
             alt="Multiple Amigos Cats Background"
             layout="fill"
-            objectFit="cover"
+            objectFit="contain"
             quality={100}
           />
         </div>
@@ -131,7 +132,7 @@ export default function Home() {
             src="/amigos-about.jpeg"
             alt="Multiple Amigos Cats Background"
             layout="fill"
-            objectFit="cover"
+            objectFit="contain"
             quality={100}
           />
         </div>
@@ -636,17 +637,22 @@ export default function Home() {
             JOIN THE AMIGOS
           </motion.h2>
 
-          {/* Disclaimer Text */}
-          <motion.p
-            className="text-sm sm:text-lg md:text-xl text-white text-center max-w-90% sm:max-w-2xl px-2 sm:px-4 leading-relaxed drop-shadow-md"
+          {/* Disclaimer Text in Black Box */}
+          <motion.div
+            className="bg-black p-4 sm:p-6 rounded-lg max-w-90% sm:max-w-2xl mx-auto"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
-            AMIGOS IS A MEME TOKEN WITH NO INTRINSIC VALUE. THIS IS JUST FOR FUN AND NOT FINANCIAL ADVICE. JOIN THE FIESTA AT YOUR OWN RISK AND DO NOT SPEND WHAT YOU CANNOT AFFORD TO LOSE
-          </motion.p>
+            <p className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center leading-relaxed drop-shadow-md">
+              AMIGOS IS A MEME TOKEN WITH NO INTRINSIC VALUE. THIS IS JUST FOR FUN AND NOT FINANCIAL ADVICE. JOIN THE FIESTA AT YOUR OWN RISK AND DO NOT SPEND WHAT YOU CANNOT AFFORD TO LOSE
+            </p>
+            <p className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center leading-relaxed drop-shadow-md mt-4">
+              Earn rewards by staking and holding!
+            </p>
+          </motion.div>
         </div>
       </section>
     </div>
   );
-} 
+}
