@@ -77,14 +77,14 @@ export default function Home() {
 
           {/* Animated "TAKE ME DOWN" Button at the Bottom */}
           <motion.div
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 sm:w-auto z-20 text-center pb-6 sm:pb-10"
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full sm:w-auto z-20 text-center pb-6 sm:pb-10"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
             <motion.button
               onClick={scrollDown}
-              className="px-6 py-3 sm:px-8 sm:py-4 bg-yellow-400 text-black font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-lg hover:bg-yellow-500 hover:shadow-xl transition-all duration-300 w-full sm:w-auto mx-auto"
+              className="px-6 py-3 sm:px-8 sm:py-4 bg-yellow-400 text-black font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-lg hover:bg-yellow-500 hover:shadow-xl transition-all duration-300 block mx-auto"
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -125,21 +125,6 @@ export default function Home() {
                   Together, we’re building something that lasts — a fiesta on the blockchain where transparency, fairness, and fun take center stage. So join the adventure, because with the Amigos, the community always comes first… and the party never ends!
                 </p>
               </div>
-            </motion.div>
-            {/* Animated Cat Characters for Mobile */}
-            <motion.div
-              className="absolute inset-0 z-10 md:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <Image
-                src="/amigos-cats-animated.gif"
-                alt="Animated Amigos Cats"
-                layout="fill"
-                objectFit="contain"
-                quality={100}
-              />
             </motion.div>
           </div>
         </section>
@@ -242,21 +227,6 @@ export default function Home() {
                 </div>
               </motion.div>
             </div>
-            {/* Animated Cat Characters for Mobile */}
-            <motion.div
-              className="absolute inset-0 z-10 md:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <Image
-                src="/amigos-cats-animated.gif"
-                alt="Animated Amigos Cats"
-                layout="fill"
-                objectFit="contain"
-                quality={100}
-              />
-            </motion.div>
           </div>
         </section>
       ),
@@ -560,13 +530,14 @@ export default function Home() {
             <motion.h2
               className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-frijole drop-shadow-2xl mb-4 sm:mb-6"
               style={{
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-                WebkitTextStroke: '1px rgba(0, 0, 0, 0.1)',
+                textShadow: '4px 4px 8px rgba(0, 0, 0, 0.8)',
+                WebkitTextStroke: '2px rgba(0, 0, 0, 0.3)',
                 fontFamily: 'Frijole, cursive',
+                fontWeight: '1000',
               }}
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, y: -50, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 1.2, type: 'spring', stiffness: 100, repeat: Infinity, repeatType: 'reverse' }}
             >
               JOIN THE AMIGOS
             </motion.h2>
