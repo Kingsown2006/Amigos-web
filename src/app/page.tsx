@@ -1,4 +1,4 @@
- 'use client';
+'use client';
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -27,17 +27,17 @@ export default function Home() {
           {/* Animated Title */}
           <motion.div
             className="relative z-20 text-center py-10"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, y: -50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, type: 'spring', stiffness: 100, repeat: Infinity, repeatType: 'reverse' }}
           >
             <h1
               className="text-4xl sm:text-6xl md:text-8xl text-white font-vacation-postcard drop-shadow-2xl"
               style={{
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-                WebkitTextStroke: '2px rgba(0, 0, 0, 0.2)',
+                textShadow: '4px 4px 8px rgba(0, 0, 0, 0.8)',
+                WebkitTextStroke: '4px rgba(0, 0, 0, 0.4)',
                 fontFamily: '"Vacation Postcard", cursive',
-                fontWeight: '900',
+                fontWeight: '1000',
               }}
             >
               AMIGOS
@@ -77,14 +77,14 @@ export default function Home() {
 
           {/* Animated "TAKE ME DOWN" Button at the Bottom */}
           <motion.div
-            className="absolute bottom-0 left-0 w-full z-20 text-center pb-6 sm:pb-10"
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 sm:w-auto z-20 text-center pb-6 sm:pb-10"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
             <motion.button
               onClick={scrollDown}
-              className="px-6 py-3 sm:px-8 sm:py-4 bg-yellow-400 text-black font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-lg hover:bg-yellow-500 hover:shadow-xl transition-all duration-300 w-3/4 sm:w-auto mx-auto"
+              className="px-6 py-3 sm:px-8 sm:py-4 bg-yellow-400 text-black font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-lg hover:bg-yellow-500 hover:shadow-xl transition-all duration-300 w-full sm:w-auto mx-auto"
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -103,7 +103,7 @@ export default function Home() {
               src="/amigos-about.jpeg"
               alt="Multiple Amigos Cats Background"
               layout="fill"
-              objectFit="contain"
+              objectFit="cover"
               quality={100}
             />
           </div>
@@ -126,6 +126,21 @@ export default function Home() {
                 </p>
               </div>
             </motion.div>
+            {/* Animated Cat Characters for Mobile */}
+            <motion.div
+              className="absolute inset-0 z-10 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
+              <Image
+                src="/amigos-cats-animated.gif"
+                alt="Animated Amigos Cats"
+                layout="fill"
+                objectFit="contain"
+                quality={100}
+              />
+            </motion.div>
           </div>
         </section>
       ),
@@ -139,7 +154,7 @@ export default function Home() {
               src="/amigos-about.jpeg"
               alt="Multiple Amigos Cats Background"
               layout="fill"
-              objectFit="contain"
+              objectFit="cover"
               quality={100}
             />
           </div>
@@ -227,6 +242,21 @@ export default function Home() {
                 </div>
               </motion.div>
             </div>
+            {/* Animated Cat Characters for Mobile */}
+            <motion.div
+              className="absolute inset-0 z-10 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
+              <Image
+                src="/amigos-cats-animated.gif"
+                alt="Animated Amigos Cats"
+                layout="fill"
+                objectFit="contain"
+                quality={100}
+              />
+            </motion.div>
           </div>
         </section>
       ),
@@ -508,121 +538,6 @@ export default function Home() {
             >
               <FaLeaf className="text-green-500 text-xl sm:text-4xl" />
             </motion.div>
-          </div>
-        </section>
-      ),
-    },
-    // Sixth Slide
-    {
-      content: (
-        <section className="min-h-screen relative">
-          <div className="absolute inset-0 z-0 bg-gradient-to-br from-yellow-200 via-green-300 to-blue-200 animate-gradient-xy">
-            {/* Animated gradient background */}
-          </div>
-          <style>
-            {`
-              @keyframes gradient-xy {
-                0% { background-position: 0% 0%; }
-                50% { background-position: 100% 100%; }
-                100% { background-position: 0% 0%; }
-              }
-              .animate-gradient-xy {
-                background-size: 200% 200%;
-                animation: gradient-xy 10s ease infinite;
-              }
-            `}
-          </style>
-          <div className="relative z-20 min-h-screen flex flex-col items-center justify-center pt-8 sm:pt-16">
-            {/* Animated Staking Title */}
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4 sm:mb-8 drop-shadow-lg"
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, type: 'spring', stiffness: 120 }}
-            >
-              Amigos Staking Platform
-            </motion.h2>
-
-            {/* Staking Panel */}
-            <motion.div
-              className="w-90% sm:w-2/3 md:w-500px p-4 sm:p-6 bg-white bg-opacity-90 rounded-xl shadow-2xl border border-gray-200"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2 }}
-            >
-              {/* Wallet Balance */}
-              <div className="mb-4 sm:mb-6">
-                <p className="text-base sm:text-lg text-gray-700">Wallet Balance: 1000 AMG</p>
-              </div>
-
-              {/* Staking Balance */}
-              <div className="mb-4 sm:mb-6">
-                <p className="text-base sm:text-lg text-gray-700">Staked Balance: 500 AMG</p>
-              </div>
-
-              {/* Staking Input */}
-              <div className="mb-4 sm:mb-6">
-                <label className="block text-base sm:text-lg text-gray-800 font-semibold mb-2">Stake Amount (AMG)</label>
-                <div className="flex items-center">
-                  <input
-                    type="number"
-                    className="w-full p-2 sm:p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    placeholder="Enter amount"
-                  />
-                  <button className="px-2 sm:px-4 py-2 sm:py-2 bg-gray-300 text-gray-800 rounded-r-lg hover:bg-gray-400">Max</button>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mb-4 sm:mb-6">
-                <motion.button
-                  className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300 font-semibold"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Stake Tokens
-                </motion.button>
-                <motion.button
-                  className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 font-semibold"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Unstake Tokens
-                </motion.button>
-              </div>
-
-              {/* NFT Staking Button */}
-              <motion.button
-                className="w-full px-4 sm:px-6 py-2 sm:py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300 font-semibold mb-4 sm:mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                Stake NFTs (Dummy)
-              </motion.button>
-
-              {/* Reward Display */}
-              <div className="mb-4 sm:mb-6">
-                <p className="text-base sm:text-lg text-gray-700 font-semibold">Total Rewards: 25.50 AMG</p>
-                <p className="text-sm text-gray-500">Last Claimed: 07/17/2025</p>
-              </div>
-            </motion.div>
-
-            {/* Connect Wallet Button */}
-            <motion.button
-              className="mt-4 sm:mt-8 px-6 sm:px-10 py-2 sm:py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center font-semibold"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <FaWallet className="mr-2 text-base sm:text-lg" /> Connect Wallet
-            </motion.button>
           </div>
         </section>
       ),
