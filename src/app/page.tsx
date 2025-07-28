@@ -107,7 +107,7 @@ export default function Home() {
               quality={100}
             />
           </div>
-          <div className="relative z-20 min-h-screen flex items-center justify-center">
+          <div className="relative z-20 min-h-screen flex items-center justify-center pt-2 sm:pt-4">
             <motion.div
               className="bg-green-900 bg-opacity-70 p-4 sm:p-6 rounded-lg max-w-90% sm:max-w-3xl md:max-w-4xl w-full mx-auto"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -133,20 +133,35 @@ export default function Home() {
     // Third Slide
     {
       content: (
-        <section className="min-h-screen relative">
+        <section className="min-h-screen relative bg-green-700 pt-20 sm:pt-32">
           <div className="absolute inset-0 z-0">
-            <Image
-              src="/amigos-about.jpeg"
-              alt="Multiple Amigos Cats Background"
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-            />
+            {/* Floating Icons */}
+            <motion.div
+              className="absolute top-10 left-10 z-10"
+              animate={{ y: [0, -10, 0], rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <FaStar className="text-white text-2xl sm:text-4xl" />
+            </motion.div>
+            <motion.div
+              className="absolute top-1/3 right-10 z-10"
+              animate={{ y: [0, 10, 0], rotate: -360 }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <FaGem className="text-white text-2xl sm:text-4xl" />
+            </motion.div>
+            <motion.div
+              className="absolute bottom-10 left-20 z-10"
+              animate={{ y: [0, -15, 0], rotate: 360 }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <FaLeaf className="text-white text-2xl sm:text-4xl" />
+            </motion.div>
           </div>
-          <div className="relative z-20 min-h-screen flex flex-col items-center justify-start pt-8 sm:pt-16">
+          <div className="relative z-20 min-h-screen flex flex-col items-center justify-start">
             {/* Animated "HOW TO BUY" Box */}
             <motion.div
-              className="bg-green-700 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-8"
+              className="bg-green-900 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-8"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
@@ -234,11 +249,11 @@ export default function Home() {
     // Fourth Slide
     {
       content: (
-        <section className="min-h-screen relative bg-gradient-to-b from-green-900 via-white to-black">
-          <div className="relative z-20 min-h-screen flex flex-col items-center justify-start pt-8 sm:pt-16">
+        <section className="min-h-screen relative bg-green-700 pt-20 sm:pt-32">
+          <div className="relative z-20 min-h-screen flex flex-col items-center justify-start">
             {/* Animated "Roadmap" Title */}
             <motion.div
-              className="bg-green-700 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-12"
+              className="bg-green-900 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-12"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
@@ -335,11 +350,11 @@ export default function Home() {
     // Fifth Slide
     {
       content: (
-        <section className="min-h-screen relative bg-black">
-          <div className="relative z-20 min-h-screen flex flex-col items-center justify-start pt-8 sm:pt-16">
+        <section className="min-h-screen relative bg-green-700 pt-20 sm:pt-32">
+          <div className="relative z-20 min-h-screen flex flex-col items-center justify-start">
             {/* Animated "TOKENOMICS" Title */}
             <motion.div
-              className="bg-green-700 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-12"
+              className="bg-green-900 bg-opacity-80 p-3 sm:p-4 rounded-lg w-90% sm:w-3/4 max-w-2xl mx-auto mb-4 sm:mb-12"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
@@ -353,14 +368,14 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 w-90% max-w-5xl mx-auto px-2 sm:px-4">
               {/* Airdrop Box */}
               <motion.div
-                className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+                className="bg-green-800 bg-opacity-70 p-3 sm:p-5 rounded-lg shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 whileHover={{ y: -15, scale: 1.05 }}
               >
                 <div className="flex flex-col items-center">
-                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Airdrop</h3>
+                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Airdrop (50%)</h3>
                   <p className="text-xs sm:text-sm md:text-base text-white text-center">
                     Half of the total supply goes straight to the community. Tokens will be airdropped in two phases to reward NFT holders and ensure long-term engagement.
                   </p>
@@ -369,7 +384,7 @@ export default function Home() {
 
               {/* Staking Box */}
               <motion.div
-                className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+                className="bg-green-800 bg-opacity-70 p-3 sm:p-5 rounded-lg shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -383,7 +398,7 @@ export default function Home() {
                   >
                     <FaCoins className="text-white text-2xl sm:text-4xl mb-2" />
                   </motion.div>
-                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Staking</h3>
+                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Staking (15%)</h3>
                   <p className="text-xs sm:text-sm md:text-base text-white text-center">
                     This is all about rewarding true holders. Stake your tokens and earn rewards proportionally. Early stakers and NFT holders get extra rewards while it’s easy to commit early.
                   </p>
@@ -392,7 +407,7 @@ export default function Home() {
 
               {/* Marketing Box */}
               <motion.div
-                className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+                className="bg-green-800 bg-opacity-70 p-3 sm:p-5 rounded-lg shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
@@ -406,7 +421,7 @@ export default function Home() {
                   >
                     <FaBullhorn className="text-white text-2xl sm:text-4xl mb-2" />
                   </motion.div>
-                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Marketing</h3>
+                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Marketing (5%)</h3>
                   <p className="text-xs sm:text-sm md:text-base text-white text-center">
                     We’re putting effort into growing the project through collaborations and campaigns to expand our reach, bringing even more value to the community.
                   </p>
@@ -415,7 +430,7 @@ export default function Home() {
 
               {/* Reserves Box */}
               <motion.div
-                className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+                className="bg-green-800 bg-opacity-70 p-3 sm:p-5 rounded-lg shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
@@ -429,7 +444,7 @@ export default function Home() {
                   >
                     <FaPiggyBank className="text-white text-2xl sm:text-4xl mb-2" />
                   </motion.div>
-                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Reserves</h3>
+                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Reserves (15%)</h3>
                   <p className="text-xs sm:text-sm md:text-base text-white text-center">
                     Setting aside resources for future growth. This reserve helps adapt to the program needs of our Amigos over time.
                   </p>
@@ -438,7 +453,7 @@ export default function Home() {
 
               {/* Liquidity Pools Box */}
               <motion.div
-                className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+                className="bg-green-800 bg-opacity-70 p-3 sm:p-5 rounded-lg shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.0 }}
@@ -452,7 +467,7 @@ export default function Home() {
                   >
                     <FaWater className="text-white text-2xl sm:text-4xl mb-2" />
                   </motion.div>
-                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Liquidity Pools</h3>
+                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Liquidity Pools (5%)</h3>
                   <p className="text-xs sm:text-sm md:text-base text-white text-center">
                     We’re starting strong by funding liquidity pools with NFT holders. This ensures a stable foundation and presence right from the beginning.
                   </p>
@@ -461,7 +476,7 @@ export default function Home() {
 
               {/* Team Box */}
               <motion.div
-                className="bg-green-600 bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-lg"
+                className="bg-green-800 bg-opacity-70 p-3 sm:p-5 rounded-lg shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
@@ -475,7 +490,7 @@ export default function Home() {
                   >
                     <FaUsers className="text-white text-2xl sm:text-4xl mb-2" />
                   </motion.div>
-                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Team</h3>
+                  <h3 className="text-base sm:text-lg md:text-xl text-white font-semibold mb-2">Team (10%)</h3>
                   <p className="text-xs sm:text-sm md:text-base text-white text-center">
                     10% Allocated for Team
                   </p>
@@ -525,10 +540,10 @@ export default function Home() {
               quality={100}
             />
           </div>
-          <div className="relative z-20 min-h-screen flex flex-col items-center justify-center pt-8 sm:pt-16">
-            {/* Animated Title */}
+          <div className="relative z-20 min-h-screen flex flex-col items-center justify-start pt-8 sm:pt-16">
+            {/* Animated Title at Top */}
             <motion.h2
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-frijole drop-shadow-2xl mb-4 sm:mb-6"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-frijole drop-shadow-2xl"
               style={{
                 textShadow: '4px 4px 8px rgba(0, 0, 0, 0.8)',
                 WebkitTextStroke: '2px rgba(0, 0, 0, 0.3)',
@@ -542,17 +557,17 @@ export default function Home() {
               JOIN THE AMIGOS
             </motion.h2>
 
-            {/* Disclaimer Text in Black Box */}
+            {/* Rectangular Disclaimer Box at Bottom */}
             <motion.div
-              className="bg-black p-4 sm:p-6 rounded-lg max-w-90% sm:max-w-2xl mx-auto"
+              className="bg-black p-1 sm:p-2 rounded-none w-80% sm:w-1/2 h-24 sm:h-28 mx-auto absolute bottom-0"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
             >
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center leading-relaxed drop-shadow-md">
+              <p className="text-xs sm:text-sm font-bold text-white text-center leading-tight drop-shadow-md">
                 AMIGOS IS A MEME TOKEN WITH NO INTRINSIC VALUE. THIS IS JUST FOR FUN AND NOT FINANCIAL ADVICE. JOIN THE FIESTA AT YOUR OWN RISK AND DO NOT SPEND WHAT YOU CANNOT AFFORD TO LOSE
               </p>
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center leading-relaxed drop-shadow-md mt-4">
+              <p className="text-xs sm:text-sm font-bold text-white text-center leading-tight drop-shadow-md mt-1">
                 Earn rewards by staking and holding!
               </p>
             </motion.div>
